@@ -58,8 +58,15 @@ Router.post('/events/new',(req, res)=>{
 Router.post('/events/update',(req, res)=>{
     res.json("OK")
 })
-Router.post('/events/delete/',(req, res)=>{
-    res.json("OK")
+Router.post('/events/delete/:id',(req, res)=>{
+    let uid = req.params.id
+    Events.remove({_id: uid}, function(error) {
+        if(error) {
+            res.status(500)
+            res.json(error)
+        }
+        res.send("Registro eliminado")
+    })
 })
 module.exports = Router
 

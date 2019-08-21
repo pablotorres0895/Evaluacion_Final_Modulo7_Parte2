@@ -26,7 +26,8 @@ class EventManager {
         })
     }
     eliminarEvento(evento) {
-        let eventId = evento.id
+        let eventId = evento._id
+        console.log(eventId)
         $.post('/events/delete/'+eventId, {id: eventId}, (response) => {
             alert(response)
         })
@@ -98,7 +99,7 @@ class EventManager {
                 center: 'title',
                 right: 'month,agendaWeek,basicDay'
             },
-            defaultDate: '2016-11-01',
+            defaultDate: new Date().getDate(),
             navLinks: true,
             editable: true,
             eventLimit: true,
@@ -110,7 +111,7 @@ class EventManager {
             },
             events: eventos,
             eventDragStart: (event,jsEvent) => {
-                $('.delete').find('img').attr('src', "img/trash-open.png");
+                $('.delete').find('img').attr('src', "img/delete.png");
                 $('.delete').css('background-color', '#a70f19')
             },
             eventDragStop: (event,jsEvent) => {
@@ -122,8 +123,9 @@ class EventManager {
                 var y2 = ofs.top + trashEl.outerHeight(true);
                 if (jsEvent.pageX >= x1 && jsEvent.pageX<= x2 &&
                     jsEvent.pageY >= y1 && jsEvent.pageY <= y2) {
+                        console.log()
                         this.eliminarEvento(event)
-                        $('.calendario').fullCalendar('removeEvents', event.id);
+                        $('.calendario').fullCalendar('removeEvents', event._id);
                     }
                 }
             })
