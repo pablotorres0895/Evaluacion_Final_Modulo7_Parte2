@@ -14,7 +14,7 @@ class EventManager {
         console.log(url);
         $.get(url, (response) => {
             console.log(response)
-            //this.inicializarCalendario(response)
+            this.inicializarCalendario(response)
         })
     }
 
