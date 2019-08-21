@@ -14,7 +14,7 @@ mongoose.connect('mongodb://localhost/nodedb')
 app.use(express.static('client'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true}))
-app.use('/users', Routing)
+app.use('/', Routing)
 
 Server.listen(PORT, function() {
   console.log('Server is listeng on port: ' + PORT)

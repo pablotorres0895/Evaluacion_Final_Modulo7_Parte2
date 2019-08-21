@@ -1,7 +1,9 @@
 
 class EventManager {
     constructor() {
+        
         this.urlBase = "/events"
+        console.log(this.urlBase)
         this.obtenerDataInicial()
         this.inicializarFormulario()
         this.guardarEvento()
@@ -9,11 +11,23 @@ class EventManager {
 
     obtenerDataInicial() {
         let url = this.urlBase + "/all"
+        console.log(url);
         $.get(url, (response) => {
-            this.inicializarCalendario(response)
+            console.log(response)
+            //this.inicializarCalendario(response)
         })
     }
 
+    actualizarEvento(evento) {
+        $.post('/events/update/',
+        {
+          id: evento.id,
+          start:evento.start,
+          end:evento.end
+        }, (response) => {
+            alert(response)
+        })
+    }
     eliminarEvento(evento) {
         let eventId = evento.id
         $.post('/events/delete/'+eventId, {id: eventId}, (response) => {
