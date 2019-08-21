@@ -19,7 +19,7 @@ Router.post("/login",function(req,res){
     })
   })
 Router.get('/events/all',(req, res)=>{
-    Events.find({userId: id}).exec(function(err, doc){
+    Events.find({userId: id}, {title: 1, start: 1, end: 1}).exec(function(err, doc){
         if (err) {
             console.log(err)
             res.status(500)
@@ -30,6 +30,32 @@ Router.get('/events/all',(req, res)=>{
     })
 })
 Router.post('/events/new',(req, res)=>{
+    let event;
+    if (req.body.end === ''){
+        event = new Events({
+            eventId: Math.floor(Math.random() * 50),
+            userId: id,
+            title: req.body.title,
+            start: req.body.start
+        })
+    }else{
+        event = new Events({
+            eventId: Math.floor(Math.random() * 50),
+            userId: id,
+            title: req.body.title,
+            start: req.body.start,
+            end: req.body.end
+        })
+    }
+    event.save(function(error) {
+        if (error) {
+            res.status(500)
+            res.json(`Error: ${error}`)
+        }
+        res.send("Registro guardado")
+    })
+})
+Router.post('/events/update',(req, res)=>{
     res.json("OK")
 })
 Router.post('/events/delete/',(req, res)=>{
