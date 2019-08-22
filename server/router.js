@@ -56,7 +56,22 @@ Router.post('/events/new',(req, res)=>{
     })
 })
 Router.post('/events/update',(req, res)=>{
-    res.json("OK")
+    let uid = req.body.id
+    Events.update(
+        {
+            _id: uid
+        },
+        {
+            $set: {
+                start: req.body.start, 
+                end: req.body.end}
+        }, function(error) {
+        if(error) {
+            res.status(500)
+            res.json(error)
+        }
+        res.send("Registro actualizado")
+    })
 })
 Router.post('/events/delete/:id',(req, res)=>{
     let uid = req.params.id

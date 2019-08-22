@@ -16,9 +16,10 @@ class EventManager {
     }
 
     actualizarEvento(evento) {
-        $.post('/events/update/',
+        console.log(evento);
+        $.post('/events/update',
         {
-          id: evento.id,
+          id: evento._id,
           start:evento.start,
           end:evento.end
         }, (response) => {
@@ -129,7 +130,7 @@ class EventManager {
                     }
                 }
             })
-        }
     }
+}
 
     const Manager = new EventManager()
